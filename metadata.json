@@ -1,0 +1,6 @@
+{
+  "name": "SmartList",
+  "description": "Gerenciador inteligente de listas de compras com visual minimalista, compartilhamento fácil, estatísticas e modo offline.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

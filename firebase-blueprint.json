@@ -1,0 +1,102 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile settings and stats",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "provider": { "type": "string", "enum": ["google", "apple", "email"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "plan": { "type": "string", "enum": ["Free", "Premium"] },
+        "settings": { "type": "object" },
+        "stats": { "type": "object" },
+        "lastLogin": { "type": "string", "format": "date-time" },
+        "emailVerified": { "type": "boolean" }
+      },
+      "required": ["id", "name", "email", "provider", "createdAt"]
+    },
+    "ShoppingList": {
+      "title": "ShoppingList",
+      "description": "A shopping list containing products",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 100 },
+        "ownerId": { "type": "string" },
+        "category": { "type": "string" },
+        "color": { "type": "string" },
+        "icon": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "description": { "type": "string", "maxLength": 500 },
+        "status": { "type": "string", "enum": ["active", "completed", "archived"] },
+        "participants": { "type": "array" }
+      },
+      "required": ["id", "name", "ownerId", "category", "createdAt", "updatedAt", "status"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "A product belonging to a list",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "listId": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "name": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "category": { "type": "string" },
+        "quantity": { "type": "number" },
+        "unit": { "type": "string" },
+        "brand": { "type": "string", "maxLength": 100 },
+        "estimatedPrice": { "type": "number" },
+        "paidPrice": { "type": "number" },
+        "images": { "type": "array" },
+        "recommendationLink": { "type": "string" },
+        "note": { "type": "string", "maxLength": 500 },
+        "barcode": { "type": "string" },
+        "isFavorite": { "type": "boolean" },
+        "isBought": { "type": "boolean" },
+        "boughtAt": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "listId", "ownerId", "name", "category", "quantity", "unit", "estimatedPrice", "isFavorite", "isBought", "updatedAt"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "User activity logging",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "action": { "type": "string" },
+        "details": { "type": "string", "maxLength": 500 },
+        "listId": { "type": "string" },
+        "payload": { "type": "string" }
+      },
+      "required": ["id", "ownerId", "timestamp", "action", "details"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles and settings"
+    },
+    "listas/{listaId}": {
+      "schema": "ShoppingList",
+      "description": "Shopping lists created by users"
+    },
+    "produtos/{produtoId}": {
+      "schema": "Product",
+      "description": "Products belonging to shopping lists"
+    },
+    "logs/{logId}": {
+      "schema": "ActivityLog",
+      "description": "User audit activity log"
+    }
+  }
+}
